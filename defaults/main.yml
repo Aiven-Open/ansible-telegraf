@@ -58,11 +58,11 @@ telegraf_plugins_base:
     options:
       percpu: "true"
       totalcpu: "true"
-      fielddrop:
+      fieldexclude:
         - "time_*"
   - name: disk
     options:
-      mountpoints:
+      mount_points:
         - "/"
   - name: diskio
     options:
@@ -76,6 +76,6 @@ telegraf_plugins_base:
       interfaces:
         - "eth0"
 
-telegraf_plugins: "{{ telegraf_plugins_base }} + {{ telegraf_plugins_extra | default([]) }}"
+telegraf_plugins: "{{ telegraf_plugins_base + telegraf_plugins_extra | default([]) }}"
 
 telegraf_influxdata_base_url: "https://repos.influxdata.com"
