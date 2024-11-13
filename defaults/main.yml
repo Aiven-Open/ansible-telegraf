@@ -28,6 +28,8 @@ telegraf_hostname:
 telegraf_omit_hostname: "false"
 telegraf_install_url:
 
+# output.influxdb config
+telegraf_influxdb_output_enabled: true
 telegraf_influxdb_urls:
   - http://localhost:8086
 telegraf_influxdb_database: telegraf
@@ -50,6 +52,19 @@ telegraf_influxdb_v2: false
 telegraf_influxdb_token:
 telegraf_influxdb_organization:
 telegraf_influxdb_bucket:
+
+# output.http config
+telegraf_http_output_enabled: false
+telegraf_http_url:
+telegraf_http_timeout: 60s
+telegraf_http_method: POST
+telegraf_http_data_format: prometheusremotewrite
+
+telegraf_http_username:
+telegraf_http_password:
+
+telegraf_http_headers: {}
+
 
 telegraf_plugins_base:
   - name: mem
