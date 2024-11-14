@@ -83,6 +83,7 @@
 
 [outputs]
 
+{% if telegraf_influxdb_output_enabled %}
 # Configuration for influxdb server to send metrics to
 {% if telegraf_influxdb_v2 != true %}
 [[outputs.influxdb]]
@@ -152,6 +153,38 @@
 {% if telegraf_influxdb_bucket is defined and telegraf_influxdb_bucket != None %}
   bucket = "{{ telegraf_influxdb_bucket }}"
 {% endif %}
+{% endif %}
+{% endif %}
+
+{% if telegraf_http_output_enabled %}
+[[outputs.http]]
+  ## URL is the address to send metrics to
+  url = "{{ telegraf_http_url }}"
+  ## Timeout for HTTP message
+  timeout = "{{ telegraf_http_timeout }}"
+  ## HTTP method, one of: "POST" or "PUT"
+  method = "{{ telegraf_http_method }}"
+  
+  ## Data format to output.
+  ## Each data format has it's own unique set of configuration options, read
+  ## more about them here:
+  ## https://github.com/influxdata/telegraf/blob/master/docs/DATA_FORMATS_OUTPUT.md
+  data_format = "{{ telegraf_http_data_format }}"
+
+  ## HTTP Basic Auth credentials
+{% if telegraf_http_username is defined and telegraf_http_username != None %}
+  username = "{{ telegraf_http_username }}"
+{% endif %}
+{% if telegraf_http_password is defined and telegraf_http_password != None %}
+  password = "{{ telegraf_http_password }}"
+{% endif %}
+{% if telegraf_http_headers is defined and telegraf_http_headers != None and telegraf_http_headers | length > 0 %}
+  [outputs.http.headers]
+    {% for key, value in telegraf_http_headers.items() %}
+    {{ key }} = "{{ value }}"
+    {% endfor %}
+{% endif %}
+
 {% endif %}
 ###############################################################################
 #                                  PLUGINS                                    #
