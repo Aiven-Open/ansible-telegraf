@@ -7,6 +7,5 @@
   # Only care to check the status if the state changed to 'started'
   notify:
     - "pause"
-    - "check status"
-    - "assert running"
+    - "check and assert running"
   become: true

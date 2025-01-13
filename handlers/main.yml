@@ -15,16 +15,16 @@
 ## After version 2.2 of ansible 'listen' could be used to
 ## group 'check status' and 'assert running' into a single listener
 - name: check status
-  command: service telegraf status
-  args:
-    warn: false
+  ansible.builtin.command: service telegraf status
   ignore_errors: true
   register: telegraf_service_status
   become: true
   when: telegraf_start_service
+  listen: "check and assert running"
 
 - name: assert running
   assert:
     that:
       - "telegraf_service_status.rc == 0"
   when: telegraf_start_service
+  listen: "check and assert running"
