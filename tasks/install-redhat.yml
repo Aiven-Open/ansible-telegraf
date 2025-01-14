@@ -8,6 +8,12 @@
     mode: 0644
   when: telegraf_install_url is not defined or telegraf_install_url == None
 
+# https://www.influxdata.com/blog/linux-package-signing-key-rotation/
+- name: Add updated influxdb repo key
+  ansible.builtin.rpm_key:
+    key: https://repos.influxdata.com/influxdata-archive_compat.key
+    state: present
+
 - name: Install Telegraf packages [RHEL/CentOS]
   yum:
     name: telegraf

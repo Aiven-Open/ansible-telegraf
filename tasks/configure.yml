@@ -25,8 +25,7 @@
   notify:
     - "restart telegraf"
     - "pause"
-    - "check status"
-    - "assert running"
+    - "check and assert running"
 
 - name: Test for sysvinit script
   stat:
